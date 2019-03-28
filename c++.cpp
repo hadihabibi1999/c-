@@ -1,3 +1,4 @@
+
 //copy the elements from x to y which are into [a;b] range
 #include <iostream>
 #include <ctime>
@@ -13,6 +14,10 @@ void outarray (int *y,int k);
 int main(){
     srand(time(0));
     
+     char x;
+    while(true){
+        
+    
     int n,m;
     cout<<"Row:";
     cin>>n;
@@ -22,17 +27,33 @@ int main(){
     int a; cout<<"a?";  cin>>a;
     int b; cout<<"b?";  cin>>b;
     
-    int ** matrix = new int *[n];
-    for (int i=0 ; i<n ;i++)
-        matrix [i]= new int [m];
-    cout<<endl;
-    input(matrix,m,n);
-    output(matrix,m,n);
-    cout<<endl;
-    int k = calc(matrix,m,n,k,a,b);
-    int *y = new int [k];
-   
-    outarray(y,k);
+        cout<<"fo getting started calculation press number zero "<<endl;
+        cin>>x;
+        
+    switch(x){
+        case '0':{
+            int ** matrix = new int *[n];
+            for (int i=0 ; i<n ;i++)
+                matrix [i]= new int [m];
+            
+            cout<<endl;
+            
+            input(matrix,n,m);
+            output(matrix,m,n);
+            cout<<endl;
+            int k = calc(matrix,m,n,k,a,b);
+            int *y = new int [k];
+            copy(matrix,n,m,k,a,b,y);
+            outarray(y,k);
+            break;
+        }
+        
+        default:
+            cout<<"error"<<endl;;
+        }
+        
+  
+    }
     
 }
 
@@ -50,19 +71,19 @@ void output (int **matrix,int n , int m){
     for (int i=0; i<n;i++){
         for (int j=0; j<m;j++)
             cout<< *(*(matrix + i)+j)<<" ";
-            cout<<endl;
+        cout<<endl;
     }
 }
-    
-    
-    int calc (int **matrix ,int n , int m ,int k,int a,int b) {
-        k=0;
-        for (int i=0; i<n;i++)
-            for (int j=0; j<m;j++)
-                if (*(*(matrix + i)+j) > a && *(*(matrix + i)+j) < b )
-                    k++;
-        return k;
-    }
+
+
+int calc (int **matrix ,int n , int m ,int k,int a,int b) {
+    k=0;
+    for (int i=0; i<n;i++)
+        for (int j=0; j<m;j++)
+            if (*(*(matrix + i)+j) > a && *(*(matrix + i)+j) < b )
+                k++;
+    return k;
+}
 
 
 void copy (int **matrix,int n , int m,int k,int a,int b,int *y){
